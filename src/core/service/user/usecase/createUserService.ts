@@ -1,4 +1,4 @@
-import { Result } from './../../../common/response/result';
+import { Result } from '../../../common/response/Result';
 import { Exception } from './../../../common/response/Exception';
 import { CoreAssert } from "../../../common/utils/assert";
 import { IUserRepository } from "../../../domain/user/abstract/persistance/IUserRepository";
@@ -8,9 +8,10 @@ import { CreateUserUseCase } from "../../../domain/user/usecase/CreateUserUseCas
 import { UserUseCaseDto } from "../../../domain/user/usecase/dto/userUseCaseDTO";
 
 export class CreateUserService implements CreateUserUseCase {
+
     constructor(
         private readonly userRepository: IUserRepository
-    ) { }
+    ) { console.log("CretaUserService zuhahahahah"); }
 
     public async execute(payload: ICreateUser): Promise<UserUseCaseDto> {
 

@@ -1,11 +1,11 @@
-import { Result } from './../../../common/response/result';
-import { Exception } from './../../../common/response/Exception';
-import { CoreAssert } from './../../../common/utils/assert';
-import { IGalleryRepository } from "../../../domain/image/abstract/persistance/iGalleryRepository";
-import { IGetImages } from "../../../domain/image/abstract/usecase/iGetImages";
+import { Result } from '../../../common/response/Result';
+import { Exception } from '../../../common/response/Exception';
+import { CoreAssert } from '../../../common/utils/assert';
+import { IGalleryRepository } from "../../../domain/image/abstract/persistance/IGalleryRepository";
+import { IGetImages } from "../../../domain/image/abstract/usecase/IGetImages";
 import { Image } from "../../../domain/image/entity/image";
-import { ImageUseCaseDTO } from "../../../domain/image/usecase/dto/imageUseCaseDTO";
-import { GetImagesUseCase } from "../../../domain/image/usecase/getImagesUseCase";
+import { ImageUseCaseDTO } from "../../../domain/image/usecase/dto/ImageUseCaseDTO";
+import { GetImagesUseCase } from '../../../domain/image/usecase/getImagesUseCase';
 
 export class GetImagesService implements GetImagesUseCase {
 

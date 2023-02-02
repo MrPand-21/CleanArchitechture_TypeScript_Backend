@@ -1,5 +1,5 @@
-import { IGetImages } from './../abstract/usecase/iGetImages';
-import { UseCase } from './../../../common/usecase/UseCase';
-import { ImageUseCaseDTO } from './dto/imageUseCaseDTO';
+import { UseCase } from '../../../common/usecase/useCase';
+import { IGetImages } from '../abstract/usecase/IGetImages';
+import { ImageUseCaseDTO } from './dto/ImageUseCaseDTO';
 
 export interface GetImagesUseCase extends UseCase<IGetImages, ImageUseCaseDTO[]> { }

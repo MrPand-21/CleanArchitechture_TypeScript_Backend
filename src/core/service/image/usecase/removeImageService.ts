@@ -1,9 +1,9 @@
-import { Result } from './../../../common/response/result';
-import { Exception } from './../../../common/response/Exception';
-import { CoreAssert } from './../../../common/utils/assert';
-import { IGalleryRepository } from "../../../domain/image/abstract/persistance/iGalleryRepository";
-import { IRemoveImage } from "../../../domain/image/abstract/usecase/iRemoveImage";
-import { RemoveImageUseCase } from "../../../domain/image/usecase/removeImageUseCase";
+import { Result } from '../../../common/response/Result';
+import { Exception } from '../../../common/response/Exception';
+import { CoreAssert } from '../../../common/utils/assert';
+import { IGalleryRepository } from "../../../domain/image/abstract/persistance/IGalleryRepository";
+import { IRemoveImage } from "../../../domain/image/abstract/usecase/IRemoveImage";
+import { RemoveImageUseCase } from '../../../domain/image/usecase/removeImageUseCase';
 
 export class RemoveImageService implements RemoveImageUseCase {
 

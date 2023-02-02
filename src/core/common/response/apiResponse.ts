@@ -1,4 +1,4 @@
-import { Result } from './result';
+import { Result } from './Result';
 import { Nullable } from "../commonTypes";
 
 export class CoreApiResponse<TData> {

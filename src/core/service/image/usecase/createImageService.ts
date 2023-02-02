@@ -1,8 +1,8 @@
-import { IGalleryRepository } from "../../../domain/image/abstract/persistance/iGalleryRepository";
-import { ICreateImage } from "../../../domain/image/abstract/usecase/iCreateImage";
+import { IGalleryRepository } from "../../../domain/image/abstract/persistance/IGalleryRepository";
+import { ICreateImage } from "../../../domain/image/abstract/usecase/ICreateImage";
 import { Image } from "../../../domain/image/entity/image";
 import { CreateImageUseCase } from "../../../domain/image/usecase/createImageUseCase";
-import { ImageUseCaseDTO } from "../../../domain/image/usecase/dto/imageUseCaseDTO";
+import { ImageUseCaseDTO } from "../../../domain/image/usecase/dto/ImageUseCaseDTO";
 
 export class CreateImageService implements CreateImageUseCase {
 

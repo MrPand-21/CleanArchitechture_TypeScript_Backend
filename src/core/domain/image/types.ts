@@ -2,9 +2,10 @@ import { ImageType } from './../../common/enums';
 
 export type ImageEntityPayload = {
 
+    id?: string;
     title?: string,
     parentId: string,
-    type: ImageType,
+    type: number,
     imageUrl: string,
     createdAt?: Date
 

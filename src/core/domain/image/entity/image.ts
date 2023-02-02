@@ -1,7 +1,5 @@
 import { IsDate, IsEnum, IsNumber, IsOptional, IsString } from "class-validator";
-import { Nullable } from "../../../common/commonTypes";
 import { Entity } from "../../../common/entity/entity";
-import { ImageType } from "../../../common/enums";
 import { ImageEntityPayload } from "../types";
 
 export class Image extends Entity<string> {
@@ -10,10 +8,10 @@ export class Image extends Entity<string> {
     private title: string;
 
     @IsNumber()
-    private parentId: number;
+    private parentId: string;
 
-    @IsEnum(ImageType)
-    private type: ImageType;
+    @IsNumber()
+    private type: number;
 
     @IsString()
     private imageUrl: string;
@@ -24,7 +22,8 @@ export class Image extends Entity<string> {
     constructor(payload: ImageEntityPayload) {
         super();
 
-        this.title = payload.title;
+        this.id = payload.id || undefined;
+        this.title = payload.title!;
         this.parentId = payload.parentId;
         this.type = payload.type;
         this.imageUrl = payload.imageUrl;
@@ -35,11 +34,11 @@ export class Image extends Entity<string> {
         return this.title;
     }
 
-    public getParentId(): number {
+    public getParentId(): string {
         return this.parentId;
     }
 
-    public getType(): ImageType {
+    public getType(): number {
         return this.type;
     }
 

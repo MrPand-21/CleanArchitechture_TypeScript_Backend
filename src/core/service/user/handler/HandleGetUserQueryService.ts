@@ -5,7 +5,7 @@ import { IUserRepository } from "../../../domain/user/abstract/persistance/IUser
 import { User } from "../../../domain/user/entity/user";
 import { GetUserQueryHandler } from "../../../domain/user/handler/GetUserQueryHandler";
 
-export class HandlerGetUserQueryService implements GetUserQueryHandler {
+export class HandleGetUserQueryService implements GetUserQueryHandler {
 
     /**
      * @param userRepository which is used to find user by id or email in database

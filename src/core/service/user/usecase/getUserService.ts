@@ -5,7 +5,7 @@ import { IGetUser } from "../../../domain/user/abstract/usecase/IGetUser";
 import { GetUserUseCase } from "../../../domain/user/usecase/GetUserUseCase";
 import { User } from '../../../domain/user/entity/user';
 import { Exception } from '../../../common/response/Exception';
-import { Result } from '../../../common/response/result';
+import { Result } from '../../../common/response/Result';
 
 export class GetUserService implements GetUserUseCase {
 

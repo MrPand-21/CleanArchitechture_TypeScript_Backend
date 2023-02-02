@@ -1,10 +1,7 @@
-import { Result } from './../../../common/response/result';
-import { Exception } from './../../../common/response/Exception';
-import { CoreAssert } from './../../../common/utils/assert';
 import { Optional } from "../../../common/commonTypes";
 import { GetImagePreviewQuery } from "../../../common/cqers/queries/image/getImagePreviewQuery";
 import { GetImagePreviewQueryResult } from "../../../common/cqers/queries/image/results/getImagePreviewQuery";
-import { IGalleryRepository } from "../../../domain/image/abstract/persistance/iGalleryRepository";
+import { IGalleryRepository } from "../../../domain/image/abstract/persistance/IGalleryRepository";
 import { GetImagePreviewQueryHandler } from "../../../domain/image/handler/getImagePreviewQueryHandler";
 
 export class HandleGetImagePreviewQueryService implements GetImagePreviewQueryHandler {

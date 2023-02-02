@@ -1,6 +1,6 @@
 import { CoreAssert } from './../../../common/utils/assert';
 import { Image } from './../../../domain/image/entity/image';
-import { IGalleryRepository } from './../../../domain/image/abstract/persistance/iGalleryRepository';
+import { IGalleryRepository } from '../../../domain/image/abstract/persistance/IGalleryRepository';
 import { Optional } from '../../../common/commonTypes';
 import { DoesImageExistQuery } from '../../../common/cqers/queries/image/doesImageExistQuery';
 import { DoesImageExistQueryResult } from '../../../common/cqers/queries/image/results/doesImageExistQueryResult';

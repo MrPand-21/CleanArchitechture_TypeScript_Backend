@@ -3,7 +3,7 @@ import { ImageType } from "../../../../common/enums";
 export interface ICreateImage {
 
     title?: string;
-    type: ImageType;
+    type: number;
     parentId: string;
     imageUrl: string;
 

@@ -19,7 +19,7 @@ export class User extends Entity<string> {
     private readonly email: string;
 
     @IsOptional()
-    @IsEnum(UserRole)
+    //@IsEnum(UserRole)
     private readonly role: Nullable<number>;
 
     @IsString()
