@@ -1,3 +1,5 @@
+import { ApiServerConfig } from '../../infra/config/ApiServerConfig';
+import { DatabaseConfig } from '../../infra/config/DatabaseConfig';
 import { Global, Module, OnApplicationBootstrap, Provider } from '@nestjs/common';
 import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
 import { CqrsModule } from '@nestjs/cqrs';
@@ -9,8 +11,6 @@ import { NestEventBusAdapter } from '../../infra/adapter/cqers/NestEventBusAdapt
 import { NestQueryBusAdapter } from '../../infra/adapter/cqers/NestQueryBusAdapter';
 import { TypeOrmDirectory } from '../../infra/adapter/persistence/typeorm/TypeOrmDirectory';
 import { TypeOrmLogger } from '../../infra/adapter/persistence/typeorm/TypeOrmLogger';
-import { ApiServerConfig } from '../../infra/config/ApiServerConfig';
-import { DatabaseConfig } from '../../infra/config/DatabaseConfig';
 import { NestHttpExceptionFilter } from '../api/NestHttpExceptionFilter';
 import { NestHttpLoggingInterceptor } from '../api/NestHttpLoggingInterceptor';
 

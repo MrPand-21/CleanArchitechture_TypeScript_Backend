@@ -5,9 +5,9 @@ import { ExtractJwt, Strategy } from 'passport-jwt';
 import { Exception } from '../../../../core/common/response/Exception';
 import { CoreAssert } from '../../../../core/common/utils/assert';
 import { User } from '../../../../core/domain/user/entity/user';
-import { ApiServerConfig } from '../../../../infra/config/ApiServerConfig';
 import { HttpAuthService } from '../HttpAuthService';
 import { HttpJwtPayload, HttpUserPayload } from '../HttpAuthTypes';
+import { ApiServerConfig } from '../../../../infra/config/ApiServerConfig';
 
 @Injectable()
 export class HttpJwtStrategy extends PassportStrategy(Strategy) {

@@ -4,9 +4,9 @@ import { PassportStrategy } from '@nestjs/passport';
 import { Strategy } from 'passport-local';
 import { Exception } from '../../../../core/common/response/Exception';
 import { CoreAssert } from '../../../../core/common/utils/assert';
-import { ApiServerConfig } from '../../../../infra/config/ApiServerConfig';
 import { HttpAuthService } from '../HttpAuthService';
 import { HttpUserPayload } from '../HttpAuthTypes';
+import { ApiServerConfig } from '../../../../infra/config/ApiServerConfig';
 
 @Injectable()
 export class HttpLocalStrategy extends PassportStrategy(Strategy) {

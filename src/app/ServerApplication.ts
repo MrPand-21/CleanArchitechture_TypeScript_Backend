@@ -3,7 +3,7 @@ import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { DocumentBuilder, OpenAPIObject, SwaggerModule } from '@nestjs/swagger';
-import { ApiServerConfig } from '@infra/config/ApiServerConfig';
+import { ApiServerConfig } from '../infra/config/ApiServerConfig';
 
 declare const module: any;
 
@@ -40,7 +40,7 @@ export class ServerApplication {
     }
 
     private log(): void {
-        Logger.log(`Server started on host: ${this.host}; port: ${this.port};`, ServerApplication.name);
+        Logger.log(`Server started on host: ${ApiServerConfig.HOST}; port: ${ApiServerConfig.PORT};`, ServerApplication.name);
     }
 
     public static new(): ServerApplication {
