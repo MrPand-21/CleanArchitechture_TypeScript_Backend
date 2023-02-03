@@ -12,24 +12,19 @@ SCRIPT_DIR=$(
 clear() {
     rm -rf ./dist/*
 }
-
-copy() {
-    cp ./env/local.app.env ./dist/.env
-}
-
 nest() {
-    nest start -w --path ./tsconfig.build.json --config ./nest-cli.json --tsc
+    env-cmd -f ./env/local.app.env nest start --watch
 }
 
 compile() {
     clear
-    copy
     nest
 }
 
 start() {
     cd "$SCRIPT_DIR" && cd ..
-    compile
+    clear
+    nest
     cd "$RUN_DIR"
 }
 

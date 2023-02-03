@@ -8,8 +8,8 @@ import { UserModule } from './UserModule';
 @Module({
     imports: [
         ConfigModule.forRoot({
-            envFilePath: ['../../../env/local.app.env'],
-            isGlobal: true
+            envFilePath: '.env',
+            isGlobal: true,
         }),
         InfraModule,
         AuthModule,

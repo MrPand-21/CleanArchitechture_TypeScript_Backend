@@ -14,7 +14,7 @@ export class ServerApplication {
         this.buildAPIDocumentation(app);
         this.log();
 
-        await app.listen(app.get("API_HOST"), app.get("API_PORT"));
+        await app.listen(ApiServerConfig.PORT);
 
         if (module.hot) {
             module.hot.accept();
@@ -23,8 +23,8 @@ export class ServerApplication {
     }
 
     private buildAPIDocumentation(app: NestExpressApplication): void {
-        const title: string = 'IPoster';
-        const description: string = 'IPoster API documentation';
+        const title: string = 'Turix Game Website';
+        const description: string = 'Turix website API documentation';
         const version: string = '1.0.0';
 
         const options: Omit<OpenAPIObject, 'paths'> = new DocumentBuilder()
