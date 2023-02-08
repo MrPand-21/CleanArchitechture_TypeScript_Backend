@@ -7,6 +7,8 @@ import { IGalleryRepository } from '../../../domain/image/abstract/persistance/I
 import { IGetImage } from "../../../domain/image/abstract/usecase/IGetImage";
 import { ImageUseCaseDTO } from "../../../domain/image/usecase/dto/ImageUseCaseDTO";
 import { GetImageUseCase } from '../../../domain/image/usecase/getImageUseCase';
+import { ImageDITokens } from '@core/domain/image/imageDITokens';
+import { Inject } from '@nestjs/common';
 
 export class GetImageService implements GetImageUseCase {
 
@@ -14,6 +16,7 @@ export class GetImageService implements GetImageUseCase {
      *
      */
     constructor(
+        @Inject(ImageDITokens.ImageRepository)
         private readonly iGalleryRepository: IGalleryRepository
     ) {
     }

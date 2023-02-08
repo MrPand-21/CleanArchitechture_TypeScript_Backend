@@ -6,12 +6,16 @@ import { ICreateUser } from "../../../domain/user/abstract/usecase/ICreateUser";
 import { User } from "../../../domain/user/entity/user";
 import { CreateUserUseCase } from "../../../domain/user/usecase/CreateUserUseCase";
 import { UserUseCaseDto } from "../../../domain/user/usecase/dto/userUseCaseDTO";
+import { Inject, Injectable } from '@nestjs/common';
+import { UserDITokens } from '@core/domain/user/userDITokens';
 
+@Injectable()
 export class CreateUserService implements CreateUserUseCase {
 
     constructor(
+        @Inject(UserDITokens.UserRepository)
         private readonly userRepository: IUserRepository
-    ) { console.log("CretaUserService zuhahahahah"); }
+    ) { }
 
     public async execute(payload: ICreateUser): Promise<UserUseCaseDto> {
 

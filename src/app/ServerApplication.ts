@@ -4,6 +4,8 @@ import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { DocumentBuilder, OpenAPIObject, SwaggerModule } from '@nestjs/swagger';
 import { ApiServerConfig } from '../infra/config/ApiServerConfig';
+import { AppDataSource } from 'data-source';
+import { TypeOrmLogger } from '@infra/adapter/persistence/typeorm/TypeOrmLogger';
 
 declare const module: any;
 
@@ -15,6 +17,14 @@ export class ServerApplication {
         this.log();
 
         await app.listen(ApiServerConfig.PORT);
+
+        /*
+        await AppDataSource.initialize().then(() => {
+            TypeOrmLogger.new().log('info', "Database connected to " + ServerApplication.name);
+        }).catch((error) => {
+            TypeOrmLogger.new().log('warn', "Database connection error: " + error);
+        });*/
+
 
         if (module.hot) {
             module.hot.accept();

@@ -1,9 +1,7 @@
 import { TypeOrmImage } from '../../infra/adapter/persistence/typeorm/entity/TypeOrmImage';
 import { Module, Provider } from '@nestjs/common';
-import { DataSource } from 'typeorm';
 import { CoreDITokens } from '../../core/common/cqers/CoreDITokens';
 import { ImageDITokens } from '../../core/domain/image/imageDITokens';
-import { CreateImageUseCase } from '../../core/domain/image/usecase/CreateImageUseCase';
 import { RemoveImageUseCase } from '../../core/domain/image/usecase/RemoveImageUseCase';
 import { CreateImageService } from '../../core/service/image/usecase/CreateImageService';
 import { GetImageService } from '../../core/service/image/usecase/GetImageService';
@@ -12,22 +10,24 @@ import { RemoveImageService } from '../../core/service/image/usecase/RemoveImage
 import { TypeOrmImageRepositoryAdapter } from '../../infra/adapter/persistence/typeorm/repository/TypeOrmImageRepositoryAdapter';
 import { TransactionalUseCaseWrapper } from '../../infra/TransactionalUseCaseWrapper';
 import { ImageController } from '../api/controller/ImageController';
+import { DataSource } from 'typeorm';
+import { DataBaseModule } from './DatabaseModule';
+import { CreateImageUseCase } from '@core/domain/image/usecase/createImageUseCase';
 
 const persistenceProviders: Provider[] = [
     {
         provide: ImageDITokens.ImageRepository,
-        useFactory: dataSource => dataSource.getRepository(TypeOrmImage).extend(TypeOrmImageRepositoryAdapter),
-        inject: [DataSource]
+        useFactory: (dataSource: DataSource) => dataSource.getRepository(TypeOrmImage).extend(TypeOrmImageRepositoryAdapter),
+        inject: [CoreDITokens.DataSource]
+
     }
 ];
 
 const useCaseProviders: Provider[] = [
+
     {
         provide: ImageDITokens.CreateImageUseCase,
-        useFactory: (imageRepository, queryBus) => {
-            const service: CreateImageUseCase = new CreateImageService(imageRepository);
-            return new TransactionalUseCaseWrapper(service);
-        },
+        useFactory: (imageRepository) => new CreateImageService(imageRepository),
         inject: [ImageDITokens.ImageRepository, CoreDITokens.QueryBus]
     },
     {
@@ -53,6 +53,9 @@ const useCaseProviders: Provider[] = [
 const handlerProviders: Provider[] = [];
 
 @Module({
+    imports: [
+        DataBaseModule
+    ],
     controllers: [
         ImageController
     ],
@@ -60,6 +63,7 @@ const handlerProviders: Provider[] = [];
         ...persistenceProviders,
         ...useCaseProviders,
         ...handlerProviders,
+        CreateImageService
     ]
 })
 export class ImageModule { }

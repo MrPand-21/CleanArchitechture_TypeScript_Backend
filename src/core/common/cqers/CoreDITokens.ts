@@ -6,4 +6,8 @@ export class CoreDITokens {
     public static readonly QueryBus: unique symbol = Symbol('QueryBus');
     public static readonly EventBus: unique symbol = Symbol('EventBus');
 
+    // Data sources
+
+    public static readonly DataSource: unique symbol = Symbol('DataSource');
+
 }

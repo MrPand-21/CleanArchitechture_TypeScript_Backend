@@ -1,4 +1,5 @@
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Inject, Param, Post, Query } from '@nestjs/common';
+import { CreateImageService } from './../../../core/service/image/usecase/CreateImageService';
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Inject, Logger, Param, Post, Query } from '@nestjs/common';
 import { ApiBearerAuth, ApiBody, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CoreApiResponse } from '../../../core/common/response/ApiResponse';
 import { ImageDITokens } from '../../../core/domain/image/imageDITokens';
@@ -18,13 +19,15 @@ import { HttpRestApiResponseImage } from './documentation/image/HttpRestApiRespo
 import { HttpRestApiResponseImages } from './documentation/image/HttpRestApiResponseImages';
 
 
-@Controller('posts')
-@ApiTags('posts')
+@Controller('images')
+@ApiTags('images')
 export class ImageController {
 
     constructor(
+        /*
         @Inject(ImageDITokens.CreateImageUseCase)
-        private readonly createImageUseCase: CreateImageUseCase,
+        private readonly createImageUseCase: CreateImageUseCase,*/
+        private readonly createImageService: CreateImageService,
 
         @Inject(ImageDITokens.GetImageUseCase)
         private readonly getImageUseCase: GetImageUseCase,
@@ -37,9 +40,7 @@ export class ImageController {
     ) { }
 
     @Post("add")
-    @HttpAuth(0, 1, 2)
     @HttpCode(HttpStatus.OK)
-    @ApiBearerAuth()
     @ApiBody({ type: HttpRestApiModelCreateImageBody })
     @ApiResponse({ status: HttpStatus.OK, type: HttpRestApiResponseImage })
     public async createImage(
@@ -54,12 +55,16 @@ export class ImageController {
             type: body.type
         });
 
-        const createdImage: ImageUseCaseDTO = await this.createImageUseCase.execute(adapter);
+        Logger.log(adapter, "CreateImageAdapter")
+
+        const createdImage: ImageUseCaseDTO = await this.createImageService.execute(adapter);
+
+        Logger.log(createdImage, "createdImage")
 
         return CoreApiResponse.success(createdImage);
     }
 
-    @Get("images")
+    @Get("getAll")
     @HttpAuth(0, 1, 2)
     @HttpCode(HttpStatus.OK)
     @ApiBearerAuth()
@@ -69,6 +74,7 @@ export class ImageController {
         @Query() query: HttpRestApiModelGetImagesQuery
 
     ): Promise<CoreApiResponse<ImageUseCaseDTO[]>> {
+
 
         const adapter: GetImagesAdapter = await GetImagesAdapter.new({
             parentId: query.parentId,

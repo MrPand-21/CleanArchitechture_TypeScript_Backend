@@ -1,6 +1,6 @@
+import { AppDataSource } from './../../../data-source';
 import { TypeOrmUserRepositoryAdapter } from './../../infra/adapter/persistence/typeorm/repository/TypeOrmUserRepositoryAdapter';
 import { Module, Provider } from '@nestjs/common';
-import { DataSource, SelectQueryBuilder } from 'typeorm';
 import { UserDITokens } from '../../core/domain/user/userDITokens';
 import { HandleGetUserQueryService } from '../../core/service/user/handler/HandleGetUserQueryService';
 import { CreateUserService } from '../../core/service/user/usecase/createUserService';
@@ -8,13 +8,16 @@ import { GetUserService } from '../../core/service/user/usecase/getUserService';
 import { NestWrapperGetUserQueryHandler } from '../../infra/handler/NestWrapperGetUserQueryHandler';
 import { UserController } from '../api/controller/UserController';
 import { TypeOrmUser } from '../../infra/adapter/persistence/typeorm/entity/TypeOrmUser';
+import { CoreDITokens } from '@core/common/cqers/CoreDITokens';
+import { DataSource } from 'typeorm';
+import { DataBaseModule } from './DatabaseModule';
 
 
 const persistenceProviders: Provider[] = [
     {
         provide: UserDITokens.UserRepository,
-        useFactory: dataSource => dataSource.getRepository(TypeOrmUser).extend(TypeOrmUserRepositoryAdapter),
-        inject: [DataSource]
+        useFactory: (dataSource: DataSource) => dataSource.getRepository(TypeOrmUser).extend(TypeOrmUserRepositoryAdapter),
+        inject: [CoreDITokens.DataSource]
     }
 ];
 
@@ -41,6 +44,9 @@ const handlerProviders: Provider[] = [
 ];
 
 @Module({
+    imports: [
+        DataBaseModule
+    ],
     controllers: [
         UserController
     ],
