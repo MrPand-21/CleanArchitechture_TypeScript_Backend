@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy } from 'passport-local';
 import { Exception } from '../../../../core/common/response/Exception';
-import { CoreAssert } from '../../../../core/common/utils/assert';
+import { CoreAssert } from '../../../../core/common/utils/CoreAssert';
 import { HttpAuthService } from '../HttpAuthService';
 import { HttpUserPayload } from '../HttpAuthTypes';
 import { ApiServerConfig } from '../../../../infra/config/ApiServerConfig';

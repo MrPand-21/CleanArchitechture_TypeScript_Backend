@@ -1,8 +1,8 @@
 import { IsDate, IsEmail, IsEnum, isNumber, IsOptional, IsString } from "class-validator";
-import { Nullable } from "../../../common/commonTypes";
+import { Nullable } from "../../../common/utils/CommonTypes";
 import { Entity } from "../../../common/entity/entity";
-import { UserRole } from "../../../common/enums";
-import { CreateUserEntityPayload } from "../types";
+import { UserRole } from "../../../common/utils/Enums";
+import { CreateUserEntityPayload } from "../Types";
 import { compare, genSalt, hash } from "bcryptjs";
 
 export class User extends Entity<string> {

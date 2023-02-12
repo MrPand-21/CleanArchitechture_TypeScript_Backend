@@ -5,10 +5,10 @@ import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
 import { CqrsModule } from '@nestjs/cqrs';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { initializeTransactionalContext } from 'typeorm-transactional-cls-hooked';
-import { CoreDITokens } from '../../core/common/cqers/CoreDITokens';
-import { NestCommandBusAdapter } from '../../infra/adapter/cqers/NestCommandBusAdapter';
-import { NestEventBusAdapter } from '../../infra/adapter/cqers/NestEventBusAdapter';
-import { NestQueryBusAdapter } from '../../infra/adapter/cqers/NestQueryBusAdapter';
+import { DITokens } from '../../core/DITokens';
+import { NestCommandBusAdapter } from '../../infra/cqers/NestCommandBusAdapter';
+import { NestEventBusAdapter } from '../../infra/cqers/NestEventBusAdapter';
+import { NestQueryBusAdapter } from '../../infra/cqers/NestQueryBusAdapter';
 import { TypeOrmDirectory } from '../../infra/adapter/persistence/typeorm/TypeOrmDirectory';
 import { TypeOrmLogger } from '../../infra/adapter/persistence/typeorm/TypeOrmLogger';
 import { NestHttpExceptionFilter } from '../api/NestHttpExceptionFilter';
@@ -20,15 +20,15 @@ const providers: Provider[] = [
         useClass: NestHttpExceptionFilter,
     },
     {
-        provide: CoreDITokens.CommandBus,
+        provide: DITokens.CoreDITokens.CommandBus,
         useClass: NestCommandBusAdapter,
     },
     {
-        provide: CoreDITokens.QueryBus,
+        provide: DITokens.CoreDITokens.QueryBus,
         useClass: NestQueryBusAdapter,
     },
     {
-        provide: CoreDITokens.EventBus,
+        provide: DITokens.CoreDITokens.EventBus,
         useClass: NestEventBusAdapter,
     }
 ];
@@ -62,9 +62,9 @@ if (ApiServerConfig.LOG_ENABLE) {
     ],
     providers: providers,
     exports: [
-        CoreDITokens.CommandBus,
-        CoreDITokens.QueryBus,
-        CoreDITokens.EventBus,
+        DITokens.CoreDITokens.CommandBus,
+        DITokens.CoreDITokens.QueryBus,
+        DITokens.CoreDITokens.EventBus,
     ]
 })
 export class InfraModule implements OnApplicationBootstrap {

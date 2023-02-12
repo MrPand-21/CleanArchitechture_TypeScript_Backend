@@ -2,11 +2,11 @@ import { Body, Controller, Get, HttpCode, HttpStatus, Inject, Post } from '@nest
 import { ApiBearerAuth, ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CoreApiResponse } from '../../../core/common/response/ApiResponse';
 import { CreateUserUseCase } from '../../../core/domain/user/usecase/CreateUserUseCase';
-import { UserUseCaseDto } from '../../../core/domain/user/usecase/dto/userUseCaseDTO';
+import { UserUseCaseDto } from '../../../core/domain/user/entity/UserUseCaseDTO';
 import { GetUserUseCase } from '../../../core/domain/user/usecase/GetUserUseCase';
 import { UserDITokens } from '../../../core/domain/user/userDITokens';
-import { CreateUserAdapter } from '../../../infra/adapter/usecase/user/CreateUserAdapter';
-import { GetUserAdapter } from '../../../infra/adapter/usecase/user/GetUserAdapter';
+import { CreateUserAdapter } from '../../../infra/adapter/DTOs/user/CreateUserDTO';
+import { GetUserAdapter } from '../../../infra/adapter/DTOs/user/GetUserDTO';
 import { HttpAuth } from '../auth/decorator/HttpAuth';
 import { HttpUser } from '../auth/decorator/HttpUser';
 import { HttpUserPayload } from '../auth/HttpAuthTypes';

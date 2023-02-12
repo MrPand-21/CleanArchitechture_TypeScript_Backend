@@ -2,10 +2,10 @@
 import { Injectable } from '@nestjs/common';
 import { InsertResult, SelectQueryBuilder } from 'typeorm';
 import { BaseRepository } from 'typeorm-transactional-cls-hooked';
-import { Nullable, Optional } from '../../../../../core/common/commonTypes';
+import { Nullable, Optional } from '../../../../../core/common/utils/CommonTypes';
 import { RepositoryFindOptions } from '../../../../../core/common/persistance/RepositoryOptions';
-import { IUserRepository } from '../../../../../core/domain/user/abstract/persistance/IUserRepository';
-import { User } from '../../../../../core/domain/user/entity/user';
+import { IUserRepository } from '../../../../../core/domain/user/abstract/IUserRepository';
+import { User } from '../../../../../core/domain/user/entity/User';
 import { TypeOrmUserMapper } from '../entity/mapper/TypeOrmUserMapper';
 import { TypeOrmUser } from '../entity/TypeOrmUser';
 

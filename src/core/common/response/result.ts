@@ -1,4 +1,4 @@
-import { ResultDescription } from "../commonTypes";
+import { ResultDescription } from "../utils/CommonTypes";
 
 export class Result {
 

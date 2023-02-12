@@ -18,14 +18,6 @@ export class ServerApplication {
 
         await app.listen(ApiServerConfig.PORT);
 
-        /*
-        await AppDataSource.initialize().then(() => {
-            TypeOrmLogger.new().log('info', "Database connected to " + ServerApplication.name);
-        }).catch((error) => {
-            TypeOrmLogger.new().log('warn', "Database connection error: " + error);
-        });*/
-
-
         if (module.hot) {
             module.hot.accept();
             module.hot.dispose(() => app.close());

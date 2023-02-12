@@ -1,6 +1,6 @@
 import { IsDate, IsEnum, IsNumber, IsOptional, IsString } from "class-validator";
 import { Entity } from "../../../common/entity/entity";
-import { ImageEntityPayload } from "../types";
+import { ImageEntityPayload } from "../Types";
 
 export class Image extends Entity<string> {
 

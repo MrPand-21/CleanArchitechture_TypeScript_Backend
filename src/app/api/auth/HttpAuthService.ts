@@ -1,8 +1,8 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { Nullable, Optional } from '../../../core/common/commonTypes';
-import { IUserRepository } from '../../../core/domain/user/abstract/persistance/IUserRepository';
-import { User } from '../../../core/domain/user/entity/user';
+import { Nullable, Optional } from '../../../core/common/utils/CommonTypes';
+import { IUserRepository } from '../../../core/domain/user/abstract/IUserRepository';
+import { User } from '../../../core/domain/user/entity/User';
 import { UserDITokens } from '../../../core/domain/user/userDITokens';
 import { HttpJwtPayload, HttpLoggedInUser, HttpUserPayload } from './HttpAuthTypes';
 

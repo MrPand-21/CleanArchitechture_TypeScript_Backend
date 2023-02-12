@@ -1,4 +1,4 @@
-import { ResultDescription, CreateExceptionPayload, Optional } from "../commonTypes";
+import { ResultDescription, CreateExceptionPayload, Optional } from "../utils/CommonTypes";
 
 export class Exception<TData> extends Error {
 

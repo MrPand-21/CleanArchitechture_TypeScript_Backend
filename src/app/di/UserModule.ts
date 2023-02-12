@@ -1,45 +1,19 @@
-import { AppDataSource } from './../../../data-source';
+import { UserHandler } from './../../core/service/handler/UserHandler';
 import { TypeOrmUserRepositoryAdapter } from './../../infra/adapter/persistence/typeorm/repository/TypeOrmUserRepositoryAdapter';
 import { Module, Provider } from '@nestjs/common';
-import { UserDITokens } from '../../core/domain/user/userDITokens';
-import { HandleGetUserQueryService } from '../../core/service/user/handler/HandleGetUserQueryService';
-import { CreateUserService } from '../../core/service/user/usecase/createUserService';
-import { GetUserService } from '../../core/service/user/usecase/getUserService';
-import { NestWrapperGetUserQueryHandler } from '../../infra/handler/NestWrapperGetUserQueryHandler';
 import { UserController } from '../api/controller/UserController';
 import { TypeOrmUser } from '../../infra/adapter/persistence/typeorm/entity/TypeOrmUser';
-import { CoreDITokens } from '@core/common/cqers/CoreDITokens';
+import { DITokens } from '@core/DITokens';
 import { DataSource } from 'typeorm';
 import { DataBaseModule } from './DatabaseModule';
+import { UserService } from '@core/service/service/UserService';
 
 
 const persistenceProviders: Provider[] = [
     {
-        provide: UserDITokens.UserRepository,
+        provide: DITokens.UserDITokens.UserRepository,
         useFactory: (dataSource: DataSource) => dataSource.getRepository(TypeOrmUser).extend(TypeOrmUserRepositoryAdapter),
-        inject: [CoreDITokens.DataSource]
-    }
-];
-
-const useCaseProviders: Provider[] = [
-    {
-        provide: UserDITokens.CreateUserUseCase,
-        useFactory: (userRepository) => new CreateUserService(userRepository),
-        inject: [UserDITokens.UserRepository]
-    },
-    {
-        provide: UserDITokens.GetUserUseCase,
-        useFactory: (userRepository) => new GetUserService(userRepository),
-        inject: [UserDITokens.UserRepository]
-    }
-];
-
-const handlerProviders: Provider[] = [
-    NestWrapperGetUserQueryHandler,
-    {
-        provide: UserDITokens.GetUserQueryHandler,
-        useFactory: (userRepository) => new HandleGetUserQueryService(userRepository),
-        inject: [UserDITokens.UserRepository]
+        inject: [DITokens.CoreDITokens.DataSource]
     }
 ];
 
@@ -52,11 +26,11 @@ const handlerProviders: Provider[] = [
     ],
     providers: [
         ...persistenceProviders,
-        ...useCaseProviders,
-        ...handlerProviders,
+        UserService,
+        UserHandler
     ],
     exports: [
-        UserDITokens.UserRepository,
+        DITokens.UserDITokens.UserRepository,
         ...persistenceProviders
     ]
 })

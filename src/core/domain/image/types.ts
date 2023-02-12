@@ -1,4 +1,4 @@
-import { ImageType } from './../../common/enums';
+import { ImageType } from '../../common/utils/Enums';
 
 export type ImageEntityPayload = {
 

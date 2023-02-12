@@ -1,4 +1,4 @@
-import { CoreDITokens } from '@core/common/cqers/CoreDITokens';
+import { DITokens } from '@core/DITokens';
 import { TypeOrmImage } from '@infra/adapter/persistence/typeorm/entity/TypeOrmImage';
 import { TypeOrmUser } from '@infra/adapter/persistence/typeorm/entity/TypeOrmUser';
 import { Module } from '@nestjs/common';
@@ -7,7 +7,7 @@ import { DataSource } from 'typeorm';
 
 export const databaseProviders = [
     {
-        provide: CoreDITokens.DataSource,
+        provide: DITokens.CoreDITokens.DataSource,
         useFactory: async () => {
             const dataSource = new DataSource({
                 type: "mysql",

@@ -1,9 +1,9 @@
-import { Nullable } from './../../../../../core/common/commonTypes';
-import { EntityRepository, InsertResult, Repository, SelectQueryBuilder, UpdateQueryBuilder } from 'typeorm';
-import { Optional } from '../../../../../core/common/commonTypes';
+import { Nullable } from '../../../../../core/common/utils/CommonTypes';
+import { InsertResult, Repository, SelectQueryBuilder } from 'typeorm';
+import { Optional } from '../../../../../core/common/utils/CommonTypes';
 import { RepositoryFindOptions, RepositoryRemoveOptions, RepositoryUpdateManyOptions } from '../../../../../core/common/persistance/RepositoryOptions';
-import { IGalleryRepository } from '../../../../../core/domain/image/abstract/persistance/IGalleryRepository';
-import { Image } from '../../../../../core/domain/image/entity/image';
+import { IGalleryRepository } from '../../../../../core/domain/image/abstract/IGalleryRepository';
+import { Image } from '../../../../../core/domain/image/entity/Image';
 import { TypeOrmImage } from '../entity/TypeOrmImage';
 import { TypeOrmImageMapper } from '../entity/mapper/TypeOrmImageMapper';
 

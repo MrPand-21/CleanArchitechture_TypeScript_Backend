@@ -1,7 +1,7 @@
 import { Result } from '../response/Result';
-import { ClassValidationDetails, Optional } from "../commonTypes";
+import { ClassValidationDetails, Optional } from "../utils/CommonTypes";
 import { Exception } from "../response/Exception";
-import { ClassValidator } from '../utils/classValidator';
+import { ClassValidator } from '../persistance/ClassValidator';
 
 export class Entity<TIdentifier extends string | number> {
 

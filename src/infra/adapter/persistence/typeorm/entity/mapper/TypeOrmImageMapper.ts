@@ -1,4 +1,4 @@
-import { Image } from "../../../../../../core/domain/image/entity/image";
+import { Image } from "../../../../../../core/domain/image/entity/Image";
 import { TypeOrmImage } from "../TypeOrmImage";
 
 export class TypeOrmImageMapper {

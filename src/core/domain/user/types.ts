@@ -1,5 +1,5 @@
-import { Nullable } from "../../common/commonTypes";
-import { UserRole } from "../../common/enums";
+import { Nullable } from "../../common/utils/CommonTypes";
+import { UserRole } from "../../common/utils/Enums";
 
 export type EditUserEntityPayload = {
     firstName?: string,
