@@ -5,7 +5,6 @@ import { UserController } from '../api/controller/UserController';
 import { TypeOrmUser } from '../../infra/adapter/persistence/typeorm/entity/TypeOrmUser';
 import { DITokens } from '@core/DITokens';
 import { DataSource } from 'typeorm';
-import { DataBaseModule } from './DatabaseModule';
 import { UserService } from '@core/service/service/UserService';
 
 
@@ -18,9 +17,6 @@ const persistenceProviders: Provider[] = [
 ];
 
 @Module({
-    imports: [
-        DataBaseModule
-    ],
     controllers: [
         UserController
     ],

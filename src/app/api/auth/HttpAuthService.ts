@@ -1,16 +1,16 @@
+import { DITokens } from '@core/DITokens';
 import { Inject, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Nullable, Optional } from '../../../core/common/utils/CommonTypes';
 import { IUserRepository } from '../../../core/domain/user/abstract/IUserRepository';
 import { User } from '../../../core/domain/user/entity/User';
-import { UserDITokens } from '../../../core/domain/user/userDITokens';
 import { HttpJwtPayload, HttpLoggedInUser, HttpUserPayload } from './HttpAuthTypes';
 
 @Injectable()
 export class HttpAuthService {
 
     constructor(
-        @Inject(UserDITokens.UserRepository)
+        @Inject(DITokens.UserDITokens.UserRepository)
         private readonly userRepository: IUserRepository,
 
         private readonly jwtService: JwtService

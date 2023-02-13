@@ -1,12 +1,13 @@
+import { ICreateUserDTO } from '@core/domain/user/abstract/DTOs/ICreateUserDTO';
+import { IGetUserDTO } from '@core/domain/user/abstract/DTOs/IGetUserDTO';
+import { UserHandler } from '@core/service/handler/UserHandler';
+import { UserService } from '@core/service/service/UserService';
+import { CreateUserDTO } from '@infra/adapter/DTOs/user/CreateUserDTO';
+import { GetUserDTO } from '@infra/adapter/DTOs/user/GetUserDTO';
 import { Body, Controller, Get, HttpCode, HttpStatus, Inject, Post } from '@nestjs/common';
 import { ApiBearerAuth, ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CoreApiResponse } from '../../../core/common/response/ApiResponse';
-import { CreateUserUseCase } from '../../../core/domain/user/usecase/CreateUserUseCase';
 import { UserUseCaseDto } from '../../../core/domain/user/entity/UserUseCaseDTO';
-import { GetUserUseCase } from '../../../core/domain/user/usecase/GetUserUseCase';
-import { UserDITokens } from '../../../core/domain/user/userDITokens';
-import { CreateUserAdapter } from '../../../infra/adapter/DTOs/user/CreateUserDTO';
-import { GetUserAdapter } from '../../../infra/adapter/DTOs/user/GetUserDTO';
 import { HttpAuth } from '../auth/decorator/HttpAuth';
 import { HttpUser } from '../auth/decorator/HttpUser';
 import { HttpUserPayload } from '../auth/HttpAuthTypes';
@@ -18,11 +19,8 @@ import { HttpRestApiResponseUser } from './documentation/user/HttpRestApiRespons
 export class UserController {
 
     constructor(
-        @Inject(UserDITokens.CreateUserUseCase)
-        private readonly createUserUseCase: CreateUserUseCase,
-
-        @Inject(UserDITokens.GetUserUseCase)
-        private readonly getUserUseCase: GetUserUseCase,
+        private readonly userService: UserService,
+        private readonly userHandler: UserHandler,
     ) { }
 
     @Post('add')
@@ -34,7 +32,7 @@ export class UserController {
         @Body() body: HttpRestApiModelCreateUserBody
 
     ): Promise<CoreApiResponse<UserUseCaseDto>> {
-        const adapter: CreateUserAdapter = await CreateUserAdapter.new({
+        const adapter: ICreateUserDTO = await CreateUserDTO.new({
 
             firstName: body.firstName,
             lastName: body.lastName ? body.lastName : null,
@@ -45,7 +43,7 @@ export class UserController {
 
         });
 
-        const createdUser: UserUseCaseDto = await this.createUserUseCase.execute(adapter);
+        const createdUser: UserUseCaseDto = await this.userService.createUser(adapter);
 
         return CoreApiResponse.success(createdUser);
     }
@@ -59,8 +57,8 @@ export class UserController {
         @HttpUser() httpUser: HttpUserPayload
 
     ): Promise<CoreApiResponse<UserUseCaseDto>> {
-        const adapter: GetUserAdapter = await GetUserAdapter.new({ userId: httpUser.id });
-        const user: UserUseCaseDto = await this.getUserUseCase.execute(adapter);
+        const adapter: IGetUserDTO = await GetUserDTO.new({ userId: httpUser.id });
+        const user: UserUseCaseDto = await this.userService.getUser(adapter);
 
         return CoreApiResponse.success(user);
     }

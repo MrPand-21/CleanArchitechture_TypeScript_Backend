@@ -4,8 +4,6 @@ import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { DocumentBuilder, OpenAPIObject, SwaggerModule } from '@nestjs/swagger';
 import { ApiServerConfig } from '../infra/config/ApiServerConfig';
-import { AppDataSource } from 'data-source';
-import { TypeOrmLogger } from '@infra/adapter/persistence/typeorm/TypeOrmLogger';
 
 declare const module: any;
 

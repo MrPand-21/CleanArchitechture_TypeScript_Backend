@@ -1,10 +1,10 @@
 import { Exclude, Expose, plainToInstance } from 'class-transformer';
 import { IsEmail, IsNumber, IsString } from 'class-validator';
 import { ValidatableAdapter } from '../../../../core/common/persistance/ValidatableAdapter';
-import { ICreateUser } from '../../../../core/domain/user/abstract/DTOs/ICreateUserDTO';
+import { ICreateUserDTO } from '../../../../core/domain/user/abstract/DTOs/ICreateUserDTO';
 
 @Exclude()
-export class CreateUserDTO extends ValidatableAdapter implements ICreateUser {
+export class CreateUserDTO extends ValidatableAdapter implements ICreateUserDTO {
 
     @Expose()
     birthDate!: Date;
@@ -29,7 +29,7 @@ export class CreateUserDTO extends ValidatableAdapter implements ICreateUser {
     @IsNumber()
     public role!: number;
 
-    public static async new(payload: ICreateUser): Promise<CreateUserDTO> {
+    public static async new(payload: ICreateUserDTO): Promise<CreateUserDTO> {
         const adapter: CreateUserDTO = plainToInstance(CreateUserDTO, payload);
         await adapter.validate();
 

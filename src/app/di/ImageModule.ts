@@ -6,7 +6,6 @@ import { DITokens } from '../../core/DITokens';
 import { TypeOrmImageRepositoryAdapter } from '../../infra/adapter/persistence/typeorm/repository/TypeOrmImageRepositoryAdapter';
 import { ImageController } from '../api/controller/ImageController';
 import { DataSource } from 'typeorm';
-import { DataBaseModule } from './DatabaseModule';
 
 const persistenceProviders: Provider[] = [
     {
@@ -18,9 +17,6 @@ const persistenceProviders: Provider[] = [
 ];
 
 @Module({
-    imports: [
-        DataBaseModule
-    ],
     controllers: [
         ImageController
     ],
