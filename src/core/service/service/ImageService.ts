@@ -5,12 +5,13 @@ import { CoreAssert } from "@core/common/utils/CoreAssert";
 import { IGalleryRepository } from "@core/domain/image/abstract/IGalleryRepository";
 import { Image } from "@core/domain/image/entity/Image";
 import { ImageUseCaseDTO } from "@core/domain/image/entity/ImageUseCaseDTO";
-import { Inject, Injectable } from "@nestjs/common";
+import { Inject, Injectable, Logger } from "@nestjs/common";
 import { DITokens } from "@core/DITokens";
 import { IGetImageDTO } from "@core/domain/image/abstract/DTOs/IGetImageDTO";
 import { ICreateImageDTO } from "@core/domain/image/abstract/DTOs/ICreateImageDTO";
 import { IGetImagesDTO } from "@core/domain/image/abstract/DTOs/IGetImagesDTO";
 import { IRemoveImageDTO } from "@core/domain/image/abstract/DTOs/IRemoveImageDTO";
+import { TypeOrmImageRepositoryAdapter } from "@infra/adapter/persistence/typeorm/repository/TypeOrmImageRepositoryAdapter";
 
 @Injectable()
 export class ImageService {
@@ -37,6 +38,7 @@ export class ImageService {
             parentId: payload.parentId,
             imageUrl: payload.imageUrl
         })
+        Object.keys(this.iGalleryRepository).forEach(key => console.log(key));
 
         await this.iGalleryRepository.addImage(image);
 

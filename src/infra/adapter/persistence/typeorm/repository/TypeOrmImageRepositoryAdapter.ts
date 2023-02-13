@@ -6,7 +6,9 @@ import { IGalleryRepository } from '../../../../../core/domain/image/abstract/IG
 import { Image } from '../../../../../core/domain/image/entity/Image';
 import { TypeOrmImage } from '../entity/TypeOrmImage';
 import { TypeOrmImageMapper } from '../entity/mapper/TypeOrmImageMapper';
+import { Injectable } from '@nestjs/common';
 
+@Injectable()
 export class TypeOrmImageRepositoryAdapter extends Repository<TypeOrmImage> implements IGalleryRepository {
 
     private readonly imageAlias: string = 'image';
