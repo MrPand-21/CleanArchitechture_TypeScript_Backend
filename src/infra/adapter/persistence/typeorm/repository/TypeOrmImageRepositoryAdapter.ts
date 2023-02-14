@@ -1,17 +1,23 @@
 import { Nullable } from '../../../../../core/common/utils/CommonTypes';
-import { InsertResult, Repository, SelectQueryBuilder } from 'typeorm';
+import { DataSource, InsertResult, Repository, SelectQueryBuilder } from 'typeorm';
 import { Optional } from '../../../../../core/common/utils/CommonTypes';
 import { RepositoryFindOptions, RepositoryRemoveOptions, RepositoryUpdateManyOptions } from '../../../../../core/common/persistance/RepositoryOptions';
 import { IGalleryRepository } from '../../../../../core/domain/image/abstract/IGalleryRepository';
 import { Image } from '../../../../../core/domain/image/entity/Image';
 import { TypeOrmImage } from '../entity/TypeOrmImage';
 import { TypeOrmImageMapper } from '../entity/mapper/TypeOrmImageMapper';
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
+import { DITokens } from '@core/DITokens';
 
 @Injectable()
 export class TypeOrmImageRepositoryAdapter extends Repository<TypeOrmImage> implements IGalleryRepository {
 
     private readonly imageAlias: string = 'image';
+
+    constructor(@Inject(DITokens.CoreDITokens.DataSource)
+    private readonly dataSource: DataSource) {
+        super(TypeOrmImage, dataSource.createEntityManager(), dataSource.createQueryRunner());
+    }
 
     public async findImage(by: { id?: string }, options: RepositoryFindOptions = {}): Promise<Optional<Image>> {
         let domainEntity: Optional<Image>;
@@ -30,6 +36,7 @@ export class TypeOrmImageRepositoryAdapter extends Repository<TypeOrmImage> impl
     }
 
     public async findImages(by: { id?: string, parentId?: string }, options: RepositoryFindOptions = {}): Promise<Image[]> {
+
         const query: SelectQueryBuilder<TypeOrmImage> = this.buildImageQueryBuilder();
 
         this.extendQueryWithByProperties(by, query);
@@ -97,10 +104,10 @@ export class TypeOrmImageRepositoryAdapter extends Repository<TypeOrmImage> impl
 
     private extendQueryWithByProperties(by: { id?: string, parentId?: string }, query: SelectQueryBuilder<TypeOrmImage>): void {
         if (by.id) {
-            query.andWhere(`"${this.imageAlias}"."id" = :id`, { id: by.id });
+            query.andWhere(`${this.imageAlias}.id = :id`, { id: by.id });
         }
         if (by.parentId) {
-            query.andWhere(`"${this.imageAlias}"."parentId" = :parentId`, { parentId: by.parentId });
+            query.andWhere(`${this.imageAlias}.parentId = :parentId`, { parentId: by.parentId });
         }
     }
 

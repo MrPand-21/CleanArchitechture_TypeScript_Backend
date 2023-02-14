@@ -11,7 +11,6 @@ import { IGetImageDTO } from "@core/domain/image/abstract/DTOs/IGetImageDTO";
 import { ICreateImageDTO } from "@core/domain/image/abstract/DTOs/ICreateImageDTO";
 import { IGetImagesDTO } from "@core/domain/image/abstract/DTOs/IGetImagesDTO";
 import { IRemoveImageDTO } from "@core/domain/image/abstract/DTOs/IRemoveImageDTO";
-import { TypeOrmImageRepositoryAdapter } from "@infra/adapter/persistence/typeorm/repository/TypeOrmImageRepositoryAdapter";
 
 @Injectable()
 export class ImageService {
@@ -33,12 +32,13 @@ export class ImageService {
 
     public async createImage(payload: ICreateImageDTO): Promise<ImageUseCaseDTO> {
         const image: Image = await Image.new({
+            id: "1",
             title: payload.title,
             type: payload.type,
             parentId: payload.parentId,
             imageUrl: payload.imageUrl
         })
-        Object.keys(this.iGalleryRepository).forEach(key => console.log(key));
+        console.log(this)
 
         await this.iGalleryRepository.addImage(image);
 

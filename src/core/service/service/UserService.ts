@@ -19,9 +19,11 @@ export class UserService {
     constructor(
         @Inject(DITokens.UserDITokens.UserRepository)
         private readonly userRepository: IUserRepository
-    ) { }
+    ) {
+    }
 
     async getUser(payload: IGetUserDTO): Promise<UserUseCaseDto> {
+
         const user: Optional<User> = await this.userRepository.findUser({ id: payload?.userId });
         if (!user) {
             throw Exception.new({ resultDescription: Result.ENTITY_NOT_FOUND_ERROR, overrideMessage: "User not found" });

@@ -17,6 +17,7 @@ export class HttpAuthService {
     ) { }
 
     public async validateUser(username: string, password: string): Promise<Nullable<HttpUserPayload>> {
+
         const user: Optional<User> = await this.userRepository.findUser({ email: username });
 
         if (user) {

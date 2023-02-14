@@ -27,7 +27,9 @@ export class ImageController {
 
     @Post("add")
     @HttpCode(HttpStatus.OK)
+    @HttpAuth(0, 1, 2)
     @ApiBody({ type: HttpRestApiModelCreateImageBody })
+    @ApiBearerAuth()
     @ApiResponse({ status: HttpStatus.OK, type: HttpRestApiResponseImage })
     public async createImage(
         @Body() body: HttpRestApiModelCreateImageBody
@@ -35,6 +37,7 @@ export class ImageController {
     ): Promise<CoreApiResponse<ImageUseCaseDTO>> {
 
         const adapter: ICreateImageDTO = await CreateImageDTO.new({
+
             parentId: body.parentId,
             title: body.title,
             imageUrl: body.imageUrl,

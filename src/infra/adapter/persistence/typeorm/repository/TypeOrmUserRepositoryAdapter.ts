@@ -1,7 +1,7 @@
+import { DITokens } from './../../../../../core/DITokens';
 
-import { Injectable } from '@nestjs/common';
-import { InsertResult, SelectQueryBuilder } from 'typeorm';
-import { BaseRepository } from 'typeorm-transactional-cls-hooked';
+import { Inject, Injectable } from '@nestjs/common';
+import { InsertResult, Repository, SelectQueryBuilder, DataSource } from 'typeorm';
 import { Nullable, Optional } from '../../../../../core/common/utils/CommonTypes';
 import { RepositoryFindOptions } from '../../../../../core/common/persistance/RepositoryOptions';
 import { IUserRepository } from '../../../../../core/domain/user/abstract/IUserRepository';
@@ -9,20 +9,29 @@ import { User } from '../../../../../core/domain/user/entity/User';
 import { TypeOrmUserMapper } from '../entity/mapper/TypeOrmUserMapper';
 import { TypeOrmUser } from '../entity/TypeOrmUser';
 
-@Injectable()
-export class TypeOrmUserRepositoryAdapter extends BaseRepository<TypeOrmUser> implements IUserRepository {
+export class TypeOrmUserRepositoryAdapter extends Repository<TypeOrmUser> implements IUserRepository {
 
     private readonly userAlias: string = 'user';
+
+    constructor(
+        @Inject(DITokens.CoreDITokens.DataSource)
+        private readonly dataSource: DataSource) {
+        super(TypeOrmUser, dataSource.createEntityManager(), dataSource.createQueryRunner());
+    }
 
     public async findUser(by: { id?: string, email?: string }, options: RepositoryFindOptions = {}): Promise<Optional<User>> {
         let domainEntity: Optional<User>;
 
         const query: SelectQueryBuilder<TypeOrmUser> = this.buildUserQueryBuilder();
 
+
         this.extendQueryWithByProperties(by, query);
 
 
+
         const ormEntity: Nullable<Optional<TypeOrmUser>> = await query.getOne();
+
+
 
         if (ormEntity) {
             domainEntity = TypeOrmUserMapper.toDomainEntity(ormEntity);
@@ -68,10 +77,10 @@ export class TypeOrmUserRepositoryAdapter extends BaseRepository<TypeOrmUser> im
 
     private extendQueryWithByProperties(by: { id?: string, email?: string }, query: SelectQueryBuilder<TypeOrmUser>): void {
         if (by.id) {
-            query.andWhere(`"${this.userAlias}"."id" = :id`, { id: by.id });
+            query.andWhere(`${this.userAlias}.id = :id`, { id: by.id });
         }
         if (by.email) {
-            query.andWhere(`"${this.userAlias}"."email" = :email`, { email: by.email });
+            query.andWhere(`${this.userAlias}.email = :email`, { email: by.email });
         }
     }
 

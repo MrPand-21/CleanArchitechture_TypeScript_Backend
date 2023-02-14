@@ -22,6 +22,7 @@ export class AuthController {
         @Req() request: HttpRequestWithUser
 
     ): Promise<CoreApiResponse<HttpLoggedInUser>> {
+
         return CoreApiResponse.success(this.authService.login(request.user));
     }
 
