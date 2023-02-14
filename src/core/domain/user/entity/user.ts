@@ -100,6 +100,9 @@ export class User extends Entity<string> {
     }
 
     public static async new(payload: CreateUserEntityPayload): Promise<User> {
+        if (typeof payload.id === 'undefined') {
+            payload.id = Entity.generateId();
+        }
         const user: User = new User(payload);
         await user.hashPasswordHash();
         await user.validate();

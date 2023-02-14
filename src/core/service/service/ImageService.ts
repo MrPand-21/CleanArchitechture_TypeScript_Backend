@@ -32,7 +32,6 @@ export class ImageService {
 
     public async createImage(payload: ICreateImageDTO): Promise<ImageUseCaseDTO> {
         const image: Image = await Image.new({
-            id: "1",
             title: payload.title,
             type: payload.type,
             parentId: payload.parentId,

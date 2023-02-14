@@ -2,6 +2,7 @@ import { Result } from '../response/Result';
 import { ClassValidationDetails, Optional } from "../utils/CommonTypes";
 import { Exception } from "../response/Exception";
 import { ClassValidator } from '../persistance/ClassValidator';
+import { randomUUID } from 'crypto';
 
 export class Entity<TIdentifier extends string | number> {
 
@@ -20,6 +21,10 @@ export class Entity<TIdentifier extends string | number> {
         if (details) {
             throw Exception.new({ resultDescription: Result.ENTITY_VALIDATION_ERROR, data: details });
         }
+    }
+
+    static generateId(): string {
+        return Math.random().toString(36).substring(2, 15) + randomUUID() + Math.random().toString(36).substring(2, 15);
     }
 
 }

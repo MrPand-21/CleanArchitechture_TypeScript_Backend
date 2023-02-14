@@ -51,6 +51,9 @@ export class Image extends Entity<string> {
     }
 
     public static async new(payload: ImageEntityPayload): Promise<Image> {
+        if (!payload.id) {
+            payload.id = Entity.generateId();
+        }
         const image: Image = new Image(payload);
         return image;
     }
