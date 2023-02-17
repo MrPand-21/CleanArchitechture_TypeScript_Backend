@@ -1,3 +1,4 @@
+import { IsString } from 'class-validator';
 import { Exclude, Expose, plainToInstance } from 'class-transformer';
 import { IsUUID } from 'class-validator';
 import { ValidatableAdapter } from '../../../../core/common/persistance/ValidatableAdapter';
@@ -7,7 +8,8 @@ import { IGetImageDTO } from '../../../../core/domain/image/abstract/DTOs/IGetIm
 export class GetImageDTO extends ValidatableAdapter implements IGetImageDTO {
 
     @Expose()
-    @IsUUID()
+    @IsString()
+    // add custom is id decorator here
     public imageId!: string;
 
     public static async new(payload: IGetImageDTO): Promise<GetImageDTO> {

@@ -1,3 +1,4 @@
 export interface IGetUserDTO {
-    userId: string;
+    userId?: string;
+    email?: string;
 }

@@ -8,6 +8,8 @@ export interface IUserRepository {
 
     countUsers(by: { id?: string, email?: string }, options?: RepositoryFindOptions): Promise<number>;
 
+    findUsersList(by: { id?: string, email?: string }, options?: RepositoryFindOptions): Promise<Optional<User[]>>
+
     addUser(user: User): Promise<{ id: string }>;
 
     updateUser(user: User): Promise<void>;

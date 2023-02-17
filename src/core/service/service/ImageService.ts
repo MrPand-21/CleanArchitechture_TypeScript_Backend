@@ -26,7 +26,6 @@ export class ImageService {
     public async getImage(payload: IGetImageDTO): Promise<ImageUseCaseDTO> {
         const image: Optional<Image> = await this.iGalleryRepository.findImage({ id: payload.imageId });
         CoreAssert.notEmpty(image, Exception.new({ resultDescription: Result.ENTITY_NOT_FOUND_ERROR, overrideMessage: "Image not found" }));
-
         return ImageUseCaseDTO.newFromImage(image!);
     }
 
@@ -37,7 +36,6 @@ export class ImageService {
             parentId: payload.parentId,
             imageUrl: payload.imageUrl
         })
-        console.log(this)
 
         await this.iGalleryRepository.addImage(image);
 
@@ -45,7 +43,7 @@ export class ImageService {
     }
 
     public async getImages(payload: IGetImagesDTO): Promise<ImageUseCaseDTO[]> {
-        const images: Image[] = await this.iGalleryRepository.findImages();
+        const images: Image[] = await this.iGalleryRepository.findImages({ parentId: payload.parentId });
 
         CoreAssert.notEmpty(images, Exception.new({ resultDescription: Result.ENTITY_NOT_FOUND_ERROR, overrideMessage: "No images found" }));
 
@@ -56,8 +54,8 @@ export class ImageService {
 
         const { imageId } = payload;
         const doesImageExist: boolean = !! await this.iGalleryRepository.countImages({ id: imageId });
-        CoreAssert.isFalse(doesImageExist, Exception.new({ resultDescription: Result.WRONG_CREDENTIALS_ERROR, overrideMessage: "Image you've selected has already deleted", data: imageId }));
 
+        CoreAssert.isTrue(doesImageExist, Exception.new({ resultDescription: Result.WRONG_CREDENTIALS_ERROR, overrideMessage: "Image you've selected has already deleted", data: imageId }));
         return await this.iGalleryRepository.removeImage(imageId);
         //event bus can be used to publish the event that image has been deleted
     }

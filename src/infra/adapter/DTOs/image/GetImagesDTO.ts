@@ -1,3 +1,4 @@
+import { IsString } from 'class-validator';
 import { Exclude, Expose, plainToClass, plainToInstance } from 'class-transformer';
 import { IsEnum, IsOptional, IsUUID } from 'class-validator';
 import { RepositoryFindOptions } from '../../../../core/common/persistance/RepositoryOptions';
@@ -13,7 +14,8 @@ export class GetImagesDTO extends ValidatableAdapter implements IGetImagesDTO {
 
     @Expose()
     @IsOptional()
-    @IsUUID()
+    @IsString()
+    // add custom is id decorator here
     public parentId!: string;
 
 

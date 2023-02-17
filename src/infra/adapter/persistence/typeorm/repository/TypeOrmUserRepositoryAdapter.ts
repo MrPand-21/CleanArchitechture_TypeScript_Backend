@@ -9,6 +9,7 @@ import { User } from '../../../../../core/domain/user/entity/User';
 import { TypeOrmUserMapper } from '../entity/mapper/TypeOrmUserMapper';
 import { TypeOrmUser } from '../entity/TypeOrmUser';
 
+@Injectable()
 export class TypeOrmUserRepositoryAdapter extends Repository<TypeOrmUser> implements IUserRepository {
 
     private readonly userAlias: string = 'user';
@@ -45,8 +46,21 @@ export class TypeOrmUserRepositoryAdapter extends Repository<TypeOrmUser> implem
 
         this.extendQueryWithByProperties(by, query);
 
-
         return query.getCount();
+    }
+
+    public async findUsersList(by: { id?: string, email?: string }, options: RepositoryFindOptions = {}): Promise<Optional<User[]>> {
+        let domainEntities: Optional<User[]>;
+
+        const query: SelectQueryBuilder<TypeOrmUser> = this.buildUserQueryBuilder();
+
+        this.extendQueryWithByProperties(by, query);
+
+        const ormEntities: Nullable<Optional<TypeOrmUser[]>> = await query.getMany();
+
+        if (ormEntities) domainEntities = TypeOrmUserMapper.toDomainEntities(ormEntities);
+
+        return domainEntities;
     }
 
     public async addUser(user: User): Promise<{ id: string }> {

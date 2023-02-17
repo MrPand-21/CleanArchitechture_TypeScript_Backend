@@ -14,7 +14,8 @@ export class HttpJwtStrategy extends PassportStrategy(Strategy) {
 
     constructor(private authService: HttpAuthService) {
         super({
-            jwtFromRequest: ExtractJwt.fromHeader(ApiServerConfig.ACCESS_TOKEN_HEADER),
+            jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+            //fromHeader(ApiServerConfig.ACCESS_TOKEN_HEADER) if we want to use custom header
             ignoreExpiration: false,
             secretOrKey: ApiServerConfig.ACCESS_TOKEN_SECRET,
         });

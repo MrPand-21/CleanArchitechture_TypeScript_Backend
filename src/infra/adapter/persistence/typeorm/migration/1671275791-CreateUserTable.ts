@@ -6,15 +6,16 @@ export class CreateUserTable1594856827930 implements MigrationInterface {
 
     await queryRunner.query("\
       CREATE TABLE `turix`.`user`(\
-        `id`        VARCHAR(90) PRIMARY KEY,\
-        `firstName` VARCHAR(100) NULL,\
-        `lastName`  VARCHAR(100) NULL,\
-        `email`     VARCHAR(100),\
-        `role`      INT NULL,\
-        `passwordHash`  VARCHAR(200),\
-        `createdAt` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,\
-        `lastEditedAt`  TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,\
-        `birthDate` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP\
+      `id` varchar(255) NOT NULL,\
+      `role` int NOT NULL,\
+      `firstName` varchar(255) NULL,\
+      `lastName` varchar(255) NULL,\
+      `email` varchar(255) NOT NULL,\
+      `passwordHash` varchar(255) NOT NULL,\
+      `createdAt` datetime NOT NULL,\
+      `lastEditedAt` datetime NOT NULL,\
+      `birthDate` datetime NULL,\
+      PRIMARY KEY(`id`)\
       );\
     ");
   }

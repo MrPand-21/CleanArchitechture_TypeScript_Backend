@@ -4,16 +4,17 @@ import { Entity } from "../../../common/entity/entity";
 import { UserRole } from "../../../common/utils/Enums";
 import { CreateUserEntityPayload } from "../Types";
 import { compare, genSalt, hash } from "bcryptjs";
+import { IsNull } from "typeorm";
 
 export class User extends Entity<string> {
 
     @IsOptional()
     @IsString()
-    private firstName: Nullable<string>;
+    private firstName?: Nullable<string>;
 
     @IsOptional()
     @IsString()
-    private lastName: Nullable<string>;
+    private lastName?: Nullable<string>;
 
     @IsEmail()
     private readonly email: string;
@@ -34,29 +35,29 @@ export class User extends Entity<string> {
 
     @IsOptional()
     @IsDate()
-    private birthDate: Nullable<Date>;
+    private birthDate?: Nullable<Date>;
 
     constructor(payload: CreateUserEntityPayload) {
         super();
 
-        this.firstName = payload.firstName;
-        this.lastName = payload.lastName;
+        this.firstName = payload.firstName ? payload.firstName : null;
+        this.lastName = payload.lastName ? payload.lastName : null;
         this.email = payload.email;
         this.role = payload.role;
         this.passwordHash = payload.passwordHash;
 
         this.id = payload.id || undefined;
-        this.createdAt = payload.createdAt || new Date();
-        this.lastEditedAt = payload.lastEditedAt || null;
-        this.birthDate = payload.birthDate || null;
+        this.createdAt = payload.createdAt ? payload.createdAt : new Date();
+        this.lastEditedAt = payload.createdAt ? payload.createdAt : new Date();
+        this.birthDate = payload.birthDate ? new Date(payload.birthDate!) : null;
     }
 
     public getFirstName(): Nullable<string> {
-        return this.firstName;
+        return this.firstName ? this.firstName : null;
     }
 
     public getLastName(): Nullable<string> {
-        return this.lastName;
+        return this.lastName ? this.lastName : null;
     }
 
     public getName(): string {
@@ -84,7 +85,7 @@ export class User extends Entity<string> {
     }
 
     public getbirthDate(): Nullable<Date> {
-        return this.birthDate;
+        return this.birthDate ? this.birthDate : null;
     }
 
     public async hashPasswordHash(): Promise<void> {

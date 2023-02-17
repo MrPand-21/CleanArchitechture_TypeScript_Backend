@@ -4,31 +4,64 @@ import { UserRole } from '../../../../../core/common/utils/Enums';
 @Entity('user')
 export class TypeOrmUser {
 
-    @PrimaryColumn()
+    @PrimaryColumn({
+        type: 'varchar',
+        length: 255,
+        unique: true,
+    })
     public id!: string;
 
-    @Column()
+    @Column({
+        type: 'varchar',
+        length: 255,
+        nullable: true,
+    })
     public firstName!: string;
 
-    @Column()
+    @Column({
+        type: 'varchar',
+        length: 255,
+        nullable: true,
+    })
     public lastName!: string;
 
-    @Column()
+    @Column({
+        type: 'varchar',
+        length: 255,
+        unique: true,
+        nullable: false,
+    })
     public email!: string;
 
-    @Column()
+    @Column({
+        type: 'int',
+        nullable: false,
+    })
     public role!: number;
 
-    @Column()
+    @Column({
+        type: 'varchar',
+        length: 255,
+        nullable: false
+    })
     public passwordHash!: string;
 
-    @Column()
+    @Column({
+        type: 'datetime',
+        nullable: false,
+    })
     public createdAt!: Date;
 
-    @Column()
+    @Column({
+        type: 'datetime',
+        nullable: false,
+    })
     public lastEditedAt!: Date;
 
-    @Column()
+    @Column({
+        type: 'datetime',
+        nullable: true,
+    })
     public birthDate!: Date;
 
 }

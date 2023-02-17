@@ -24,7 +24,10 @@ export class UserService {
 
     async getUser(payload: IGetUserDTO): Promise<UserUseCaseDto> {
 
-        const user: Optional<User> = await this.userRepository.findUser({ id: payload?.userId });
+        if (!payload?.userId && !payload?.email) {
+            throw Exception.new({ resultDescription: Result.WRONG_CREDENTIALS_ERROR, overrideMessage: "Couldn't found necessary identifiers" });
+        }
+        const user: Optional<User> = await this.userRepository.findUser({ id: payload?.userId, email: payload?.email });
         if (!user) {
             throw Exception.new({ resultDescription: Result.ENTITY_NOT_FOUND_ERROR, overrideMessage: "User not found" });
         }
@@ -32,20 +35,28 @@ export class UserService {
         return UserUseCaseDto.newFromUser(user);
     }
 
+    async getUserList(): Promise<UserUseCaseDto[]> {
+
+        const user: Optional<User[]> = await this.userRepository.findUsersList({});
+        if (!user) {
+            throw Exception.new({ resultDescription: Result.ENTITY_NOT_FOUND_ERROR, overrideMessage: "Users not found" });
+        }
+
+        return UserUseCaseDto.newListFromUsers(user);
+    }
+
     public async createUser(payload: ICreateUserDTO): Promise<UserUseCaseDto> {
 
         const doesUserExist: boolean = !! await this.userRepository.countUsers({ email: payload.email });
         CoreAssert.isFalse(doesUserExist, Exception.new({ resultDescription: Result.ENTITY_ALREADY_EXISTS_ERROR, overrideMessage: 'User already exists' }));
-
         const user: User = await User.new({
-            firstName: payload.firstName,
-            lastName: payload.lastName,
+            firstName: payload.firstName ? payload.firstName : null,
+            lastName: payload.lastName ? payload.lastName : null,
             email: payload.email,
             role: payload.role,
-            birthDate: payload.birthDate,
+            birthDate: payload.birthDate ? payload.birthDate : null,
             passwordHash: payload.passwordHash
         })
-
         await this.userRepository.addUser(user);
 
         return UserUseCaseDto.newFromUser(user);

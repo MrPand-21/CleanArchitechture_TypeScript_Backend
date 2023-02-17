@@ -1,3 +1,4 @@
+import { IsOptional } from 'class-validator';
 import { Exclude, Expose, plainToInstance } from 'class-transformer';
 import { IsEmail, IsNumber, IsString } from 'class-validator';
 import { ValidatableAdapter } from '../../../../core/common/persistance/ValidatableAdapter';
@@ -7,19 +8,22 @@ import { ICreateUserDTO } from '../../../../core/domain/user/abstract/DTOs/ICrea
 export class CreateUserDTO extends ValidatableAdapter implements ICreateUserDTO {
 
     @Expose()
-    birthDate!: Date;
+    @IsOptional()
+    birthDate: Date;
 
     @Expose()
     @IsString()
     passwordHash!: string;
 
     @Expose()
+    @IsOptional()
     @IsString()
-    public firstName!: string;
+    public firstName: string;
 
     @Expose()
     @IsString()
-    public lastName!: string;
+    @IsOptional()
+    public lastName: string;
 
     @Expose()
     @IsEmail()

@@ -32,9 +32,11 @@ export class UserController {
         @Body() body: HttpRestApiModelCreateUserBody
 
     ): Promise<CoreApiResponse<UserUseCaseDto>> {
+
+
         const adapter: ICreateUserDTO = await CreateUserDTO.new({
 
-            firstName: body.firstName,
+            firstName: body.firstName ? body.firstName : null,
             lastName: body.lastName ? body.lastName : null,
             email: body.email,
             role: body.role,
@@ -53,14 +55,43 @@ export class UserController {
     @ApiBearerAuth()
     @HttpAuth(0, 1, 2) //TODO: change variables to enum
     @ApiResponse({ status: HttpStatus.OK, type: HttpRestApiResponseUser })
-    public async getUser(
+    public async getUserById(
         @HttpUser() httpUser: HttpUserPayload
 
     ): Promise<CoreApiResponse<UserUseCaseDto>> {
+
         const adapter: IGetUserDTO = await GetUserDTO.new({ userId: httpUser.id });
         const user: UserUseCaseDto = await this.userService.getUser(adapter);
 
         return CoreApiResponse.success(user);
+    }
+
+    @Get('get-by-email')
+    @HttpCode(HttpStatus.OK)
+    @ApiBearerAuth()
+    @HttpAuth(0, 1, 2)
+    @ApiResponse({ status: HttpStatus.OK, type: HttpRestApiResponseUser })
+    public async getUserByEmail(
+        @HttpUser() httpUser: HttpUserPayload
+
+    ): Promise<CoreApiResponse<UserUseCaseDto>> {
+        const adapter: IGetUserDTO = await GetUserDTO.new({ email: httpUser.email });
+        const user: UserUseCaseDto = await this.userService.getUser(adapter);
+
+        return CoreApiResponse.success(user);
+    }
+
+    @Get('get-all')
+    @HttpCode(HttpStatus.OK)
+    @ApiBearerAuth()
+    @HttpAuth(0, 1, 2) //TODO: change variables to enum
+    @ApiResponse({ status: HttpStatus.OK, type: HttpRestApiResponseUser })
+    public async getUsersList(
+
+    ): Promise<CoreApiResponse<UserUseCaseDto[]>> {
+        const users: UserUseCaseDto[] = await this.userService.getUserList();
+
+        return CoreApiResponse.success(users);
     }
 
 }

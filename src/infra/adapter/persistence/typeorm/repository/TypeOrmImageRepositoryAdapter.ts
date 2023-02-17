@@ -54,7 +54,7 @@ export class TypeOrmImageRepositoryAdapter extends Repository<TypeOrmImage> impl
         return domainImages;
     }
 
-    countImages(by: { id?: string | undefined; parentId?: string | undefined; }, options?: RepositoryFindOptions | undefined): Promise<number> {
+    public async countImages(by: { id?: string | undefined; parentId?: string | undefined; }, options?: RepositoryFindOptions | undefined): Promise<number> {
         const query: SelectQueryBuilder<TypeOrmImage> = this.buildImageQueryBuilder();
 
         this.extendQueryWithByProperties(by, query);
@@ -91,7 +91,6 @@ export class TypeOrmImageRepositoryAdapter extends Repository<TypeOrmImage> impl
     public async removeImage(imageId: string, options: RepositoryRemoveOptions = {}): Promise<void> {
 
         //TODO: soft delete
-
         await this.delete(imageId);
 
     }

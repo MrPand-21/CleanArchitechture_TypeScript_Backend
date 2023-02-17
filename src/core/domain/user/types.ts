@@ -9,9 +9,9 @@ export type EditUserEntityPayload = {
 export type CreateUserEntityPayload = {
     id?: string,
     role: Nullable<number>,
-    firstName: Nullable<string>,
-    lastName: Nullable<string>,
-    birthDate: Nullable<Date>,
+    firstName?: Nullable<string>,
+    lastName?: Nullable<string>,
+    birthDate?: Nullable<Date>,
     email: string,
     passwordHash: string,
     createdAt?: Date,

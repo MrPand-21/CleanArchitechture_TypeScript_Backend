@@ -1,3 +1,4 @@
+import { GetUserQueryResult } from './../../../../core/common/cqers/results/GetUserQueryResult';
 import { createParamDecorator, ExecutionContext } from '@nestjs/common';
 import { HttpRequestWithUser } from '../HttpAuthTypes';
 

@@ -14,6 +14,8 @@ import { CreateImageDTO } from '@infra/adapter/DTOs/image/CreateImageDTO';
 import { GetImagesDTO } from '@infra/adapter/DTOs/image/GetImagesDTO';
 import { GetImageDTO } from '@infra/adapter/DTOs/image/GetImageDTO';
 import { RemoveImageDTO } from '@infra/adapter/DTOs/image/RemoveImageDTO';
+import { HttpUser } from '../auth/decorator/HttpUser';
+import { HttpUserPayload } from '../auth/HttpAuthTypes';
 
 
 @Controller('images')
@@ -32,16 +34,18 @@ export class ImageController {
     @ApiBearerAuth()
     @ApiResponse({ status: HttpStatus.OK, type: HttpRestApiResponseImage })
     public async createImage(
-        @Body() body: HttpRestApiModelCreateImageBody
+        @Body() body: HttpRestApiModelCreateImageBody,
+        @HttpUser() httpUser: HttpUserPayload
 
     ): Promise<CoreApiResponse<ImageUseCaseDTO>> {
 
         const adapter: ICreateImageDTO = await CreateImageDTO.new({
 
-            parentId: body.parentId,
+            parentId: httpUser.id,
             title: body.title,
             imageUrl: body.imageUrl,
             type: body.type
+
         });
 
         Logger.log(adapter, "CreateImageDTO")
@@ -57,15 +61,32 @@ export class ImageController {
     @HttpAuth(0, 1, 2)
     @HttpCode(HttpStatus.OK)
     @ApiBearerAuth()
-    @ApiQuery({ name: 'authorId', type: 'string', required: false })
     @ApiResponse({ status: HttpStatus.OK, type: HttpRestApiResponseImages })
     public async getImagesList(
-        @Query() query: HttpRestApiModelGetImagesQuery
+        @HttpUser() httpUser: HttpUserPayload
 
     ): Promise<CoreApiResponse<ImageUseCaseDTO[]>> {
 
         const adapter: GetImagesDTO = await GetImagesDTO.new({
-            parentId: query.parentId,
+            parentId: httpUser.id,
+            options: {}
+        });
+        const posts: ImageUseCaseDTO[] = await this.imageService.getImages(adapter);
+        return CoreApiResponse.success(posts);
+    }
+
+    @Get("getAll/:parentId")
+    @HttpAuth(0, 1, 2)
+    @HttpCode(HttpStatus.OK)
+    @ApiBearerAuth()
+    @ApiResponse({ status: HttpStatus.OK, type: HttpRestApiResponseImages })
+    public async getImagesListByParentId(
+        @Param('parentId') parentId: string
+
+    ): Promise<CoreApiResponse<ImageUseCaseDTO[]>> {
+
+        const adapter: GetImagesDTO = await GetImagesDTO.new({
+            parentId: parentId,
             options: {}
         });
         const posts: ImageUseCaseDTO[] = await this.imageService.getImages(adapter);
@@ -87,13 +108,14 @@ export class ImageController {
         return CoreApiResponse.success(post);
     }
 
-    @Delete(':imageId')
+    @Delete('removeImage')
     @HttpAuth(0, 1, 2)
     @HttpCode(HttpStatus.OK)
     @ApiBearerAuth()
+    @ApiQuery({ name: 'imageId', type: 'string', required: false })
     @ApiResponse({ status: HttpStatus.OK, type: HttpRestApiResponseImages })
     public async removeImage(
-        @Param('imageId') imageId: string
+        @Query("imageId") imageId: string
 
     ): Promise<CoreApiResponse<void>> {
         const adapter: RemoveImageDTO = await RemoveImageDTO.new({ imageId: imageId });
