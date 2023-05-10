@@ -1,6 +1,6 @@
 import { Controller, HttpCode, HttpStatus, Post, Req, UseGuards } from '@nestjs/common';
 import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { CoreApiResponse } from '../../../core/common/response/ApiResponse';
+import { CoreApiResponse } from '../../../core/common/response/apiResponse';
 import { HttpLocalAuthGuard } from '../auth/guard/HttpLocalAuthGuard';
 import { HttpAuthService } from '../auth/HttpAuthService';
 import { HttpLoggedInUser, HttpRequestWithUser } from '../auth/HttpAuthTypes';

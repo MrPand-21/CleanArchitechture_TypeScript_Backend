@@ -2,7 +2,7 @@ import { IsDate, IsEmail, IsEnum, isNumber, IsOptional, IsString } from "class-v
 import { Nullable } from "../../../common/utils/CommonTypes";
 import { Entity } from "../../../common/entity/entity";
 import { UserRole } from "../../../common/utils/Enums";
-import { CreateUserEntityPayload } from "../Types";
+import { CreateUserEntityPayload } from "../types";
 import { compare, genSalt, hash } from "bcryptjs";
 import { IsNull } from "typeorm";
 

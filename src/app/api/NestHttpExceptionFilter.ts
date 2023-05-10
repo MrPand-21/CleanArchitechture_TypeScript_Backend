@@ -1,9 +1,9 @@
-import { Result } from './../../core/common/response/Result';
 import { ArgumentsHost, Catch, ExceptionFilter, HttpException, Logger, UnauthorizedException } from '@nestjs/common';
 import { Request, Response } from 'express';
-import { CoreApiResponse } from '../../core/common/response/ApiResponse';
 import { Exception } from '../../core/common/response/Exception';
 import { ApiServerConfig } from '../../infra/config/ApiServerConfig';
+import { CoreApiResponse } from '@core/common/response/apiResponse';
+import { Result } from '@core/common/response/result';
 
 @Catch()
 export class NestHttpExceptionFilter implements ExceptionFilter {

@@ -1,6 +1,6 @@
 import { Optional } from "../../../common/utils/CommonTypes";
 import { RepositoryFindOptions } from "../../../common/persistance/RepositoryOptions";
-import { User } from "../entity/User";
+import { User } from "../entity/user";
 
 export interface IUserRepository {
 

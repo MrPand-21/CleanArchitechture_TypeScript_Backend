@@ -3,7 +3,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Nullable, Optional } from '../../../core/common/utils/CommonTypes';
 import { IUserRepository } from '../../../core/domain/user/abstract/IUserRepository';
-import { User } from '../../../core/domain/user/entity/User';
+import { User } from '../../../core/domain/user/entity/user';
 import { HttpJwtPayload, HttpLoggedInUser, HttpUserPayload } from './HttpAuthTypes';
 
 @Injectable()

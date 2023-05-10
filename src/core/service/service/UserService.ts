@@ -3,10 +3,10 @@ import { Inject, Injectable } from '@nestjs/common';
 import { IGetUserDTO } from './../../domain/user/abstract/DTOs/IGetUserDTO';
 import { Optional } from "@core/common/utils/CommonTypes";
 import { Exception } from "@core/common/response/Exception";
-import { Result } from "@core/common/response/Result";
+import { Result } from "@core/common/response/result";
 import { CoreAssert } from "@core/common/utils/CoreAssert";
 import { IUserRepository } from "@core/domain/user/abstract/IUserRepository";
-import { User } from "@core/domain/user/entity/User";
+import { User } from "@core/domain/user/entity/user";
 import { UserUseCaseDto } from "@core/domain/user/entity/UserUseCaseDTO";
 import { ICreateUserDTO } from '@core/domain/user/abstract/DTOs/ICreateUserDTO';
 

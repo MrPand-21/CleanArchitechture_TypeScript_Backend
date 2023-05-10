@@ -1,5 +1,5 @@
-import { Result } from './Result';
 import { Nullable } from "../utils/CommonTypes";
+import { Result } from "@core/common/response/result";
 
 export class CoreApiResponse<TData> {
 

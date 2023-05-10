@@ -2,7 +2,7 @@ import { Optional } from "@core/common/utils/CommonTypes";
 import { GetUserQuery } from "@core/common/cqers/queries/GetUserQuery";
 import { GetUserQueryResult } from "@core/common/cqers/results/GetUserQueryResult";
 import { IUserRepository } from "@core/domain/user/abstract/IUserRepository";
-import { User } from "@core/domain/user/entity/User";
+import { User } from "@core/domain/user/entity/user";
 
 export class UserHandler {
 

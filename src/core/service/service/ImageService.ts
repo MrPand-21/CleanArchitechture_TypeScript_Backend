@@ -1,6 +1,6 @@
 import { Optional } from "@core/common/utils/CommonTypes";
 import { Exception } from "@core/common/response/Exception";
-import { Result } from "@core/common/response/Result";
+import { Result } from "@core/common/response/result";
 import { CoreAssert } from "@core/common/utils/CoreAssert";
 import { IGalleryRepository } from "@core/domain/image/abstract/IGalleryRepository";
 import { Image } from "@core/domain/image/entity/Image";

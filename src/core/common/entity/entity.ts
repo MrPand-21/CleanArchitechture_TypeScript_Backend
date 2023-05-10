@@ -1,4 +1,4 @@
-import { Result } from '../response/Result';
+import { Result } from '../response/result';
 import { ClassValidationDetails, Optional } from "../utils/CommonTypes";
 import { Exception } from "../response/Exception";
 import { ClassValidator } from '../persistance/ClassValidator';

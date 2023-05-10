@@ -1,4 +1,4 @@
-import { Result } from './../../../../core/common/response/Result';
+import { Result } from './../../../../core/common/response/result';
 import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';

@@ -6,7 +6,7 @@ import { CreateUserDTO } from '@infra/adapter/DTOs/user/CreateUserDTO';
 import { GetUserDTO } from '@infra/adapter/DTOs/user/GetUserDTO';
 import { Body, Controller, Get, HttpCode, HttpStatus, Inject, Post } from '@nestjs/common';
 import { ApiBearerAuth, ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { CoreApiResponse } from '../../../core/common/response/ApiResponse';
+import { CoreApiResponse } from '../../../core/common/response/apiResponse';
 import { UserUseCaseDto } from '../../../core/domain/user/entity/UserUseCaseDTO';
 import { HttpAuth } from '../auth/decorator/HttpAuth';
 import { HttpUser } from '../auth/decorator/HttpUser';

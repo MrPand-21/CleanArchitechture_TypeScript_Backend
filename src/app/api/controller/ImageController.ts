@@ -2,7 +2,7 @@ import { ICreateImageDTO } from '@core/domain/image/abstract/DTOs/ICreateImageDT
 import { ImageHandler } from './../../../core/service/handler/ImageHandler';
 import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Inject, Logger, Param, Post, Query } from '@nestjs/common';
 import { ApiBearerAuth, ApiBody, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { CoreApiResponse } from '../../../core/common/response/ApiResponse';
+import { CoreApiResponse } from '../../../core/common/response/apiResponse';
 import { ImageUseCaseDTO } from '../../../core/domain/image/entity/ImageUseCaseDTO';
 import { HttpAuth } from '../auth/decorator/HttpAuth';
 import { HttpRestApiModelCreateImageBody } from './documentation/image/HttpRestApiModelCreateImageBody';

@@ -2,7 +2,7 @@ import { CallHandler, ExecutionContext, Injectable, Logger, NestInterceptor } fr
 import { Request } from 'express';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { CoreApiResponse } from '../../core/common/response/ApiResponse';
+import { CoreApiResponse } from '../../core/common/response/apiResponse';
 
 @Injectable()
 export class NestHttpLoggingInterceptor implements NestInterceptor {
